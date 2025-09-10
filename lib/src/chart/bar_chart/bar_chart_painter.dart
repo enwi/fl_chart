@@ -845,7 +845,11 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
       return null;
     }
 
-    if (_groupBarsPosition == null) {
+    if (_groupBarsPosition == null ||
+        _groupBarsPosition!.length != targetData.barGroups.length ||
+        _groupBarsPosition!.asMap().entries.any((e) =>
+            e.value.barsX.length !=
+            targetData.barGroups[e.key].barRods.length)) {
       final groupsX = data.calculateGroupsX(viewSize.width);
       _groupBarsPosition =
           calculateGroupAndBarsPosition(viewSize, groupsX, data.barGroups);
