@@ -852,7 +852,9 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
     }
 
     /// Find the nearest barRod
-    for (var i = 0; i < _groupBarsPosition!.length; i++) {
+    for (var i = 0;
+        i < min(_groupBarsPosition!.length, targetData.barGroups.length);
+        i++) {
       final groupBarPos = _groupBarsPosition![i];
       for (var j = 0;
           j <
