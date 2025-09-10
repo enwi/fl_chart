@@ -845,11 +845,7 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
       return null;
     }
 
-    if (_groupBarsPosition == null ||
-        _groupBarsPosition!.length != targetData.barGroups.length ||
-        _groupBarsPosition!.asMap().entries.any((e) =>
-            e.value.barsX.length !=
-            targetData.barGroups[e.key].barRods.length)) {
+    if (_groupBarsPosition == null) {
       final groupsX = data.calculateGroupsX(viewSize.width);
       _groupBarsPosition =
           calculateGroupAndBarsPosition(viewSize, groupsX, data.barGroups);
@@ -858,7 +854,13 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
     /// Find the nearest barRod
     for (var i = 0; i < _groupBarsPosition!.length; i++) {
       final groupBarPos = _groupBarsPosition![i];
-      for (var j = 0; j < groupBarPos.barsX.length; j++) {
+      for (var j = 0;
+          j <
+              min(
+                groupBarPos.barsX.length,
+                targetData.barGroups[i].barRods.length,
+              );
+          j++) {
         final barX = groupBarPos.barsX[j];
         final barWidth = targetData.barGroups[i].barRods[j].width;
         final halfBarWidth = barWidth / 2;
